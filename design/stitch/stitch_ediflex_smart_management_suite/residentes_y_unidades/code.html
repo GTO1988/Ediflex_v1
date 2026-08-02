@@ -1,0 +1,170 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-fixed-dim": "#b2c5ff", "surface-container-high": "#dee8ff", "inverse-primary": "#b2c5ff", "on-error-container": "#93000a", "surface-container-low": "#f0f3ff", "on-error": "#ffffff", "tertiary-container": "#004b32", "on-primary-fixed-variant": "#1b4292", "primary-container": "#123c8c", "tertiary-fixed-dim": "#4edea3", "surface-container-highest": "#d8e3fb", "on-primary": "#ffffff", "on-background": "#111c2d", "on-tertiary-fixed": "#002113", "secondary-container": "#adc3ff", "background": "#f9f9ff", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "primary": "#002667", "on-tertiary-fixed-variant": "#005236", "on-tertiary-container": "#29c48b", "secondary-fixed": "#dae2ff", "error-container": "#ffdad6", "on-secondary-fixed": "#001947", "tertiary": "#003220", "primary-fixed": "#dae2ff", "inverse-on-surface": "#ecf1ff", "surface-container": "#e7eeff", "outline-variant": "#c4c6d3", "on-secondary-container": "#394f84", "on-tertiary": "#ffffff", "surface": "#f9f9ff", "surface-bright": "#f9f9ff", "secondary-fixed-dim": "#b1c5ff", "surface-dim": "#cfdaf2", "surface-variant": "#d8e3fb", "secondary": "#475d92", "on-primary-fixed": "#001848", "tertiary-fixed": "#6ffbbe", "outline": "#747783", "on-secondary": "#ffffff", "on-primary-container": "#8babff", "on-surface-variant": "#434651", "on-surface": "#111c2d", "on-secondary-fixed-variant": "#2f4579", "surface-tint": "#385bac", "inverse-surface": "#263143" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-desktop": "32px", "sm": "8px", "xs": "4px", "lg": "24px", "gutter": "16px", "base": "4px", "md": "16px", "margin-mobile": "16px", "xl": "32px" }, "fontFamily": { "body-md": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "title-md": ["Inter"], "display-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script><style>@layer base { body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } ::-webkit-scrollbar { display: none; }</style></head><body class="bg-background font-body-md text-on-background min-h-screen pt-safe pb-safe"><main class="relative w-full h-full bg-surface"><div class="flex flex-col w-full">
+<!-- Header Summary Section -->
+<div class="px-md pb-lg pt-sm">
+<div class="flex flex-col gap-xs">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Gestión de Unidades</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Administra residentes y estados de cuenta de la Torre A.</p>
+</div>
+<!-- Quick Stats Cards -->
+<div class="flex gap-md mt-lg overflow-x-auto pb-sm no-scrollbar">
+<div class="bg-primary-container min-w-[140px] p-md rounded-xl shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-on-primary-container text-[20px]">apartment</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary-container">48</span>
+<span class="font-label-md text-label-md text-on-primary-container opacity-80 uppercase tracking-wider">Total Unidades</span>
+</div>
+<div class="bg-tertiary-container min-w-[140px] p-md rounded-xl shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-on-tertiary-container text-[20px]">check_circle</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-tertiary-container">42</span>
+<span class="font-label-md text-label-md text-on-tertiary-container opacity-80 uppercase tracking-wider">Al Día</span>
+</div>
+<div class="bg-error-container min-w-[140px] p-md rounded-xl shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-on-error-container text-[20px]">warning</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-error-container">6</span>
+<span class="font-label-md text-label-md text-on-error-container opacity-80 uppercase tracking-wider">Con Deuda</span>
+</div>
+</div>
+</div>
+<!-- Search and Actions -->
+<div class="px-md flex gap-sm items-center mb-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low h-12 pl-11 pr-md rounded-full font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Buscar unidad o nombre..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary h-12 w-12 flex items-center justify-center rounded-full shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+</div>
+<!-- Unit List -->
+<div class="px-md flex flex-col gap-md pb-xl">
+<!-- List Item 101 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm flex items-center gap-md group active:bg-surface-container transition-colors">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex flex-col items-center justify-center">
+<span class="font-title-md text-title-md text-primary">101</span>
+<span class="font-label-md text-label-md text-outline">Piso 1</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Carlos Rodríguez</h3>
+<div class="flex items-center gap-sm mt-1">
+<span class="px-sm py-[2px] bg-tertiary-container/20 text-on-tertiary-container font-label-md text-[10px] rounded-full uppercase">Al Día</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Propietario</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-outline-variant hover:text-primary" onclick="this.closest('div').classList.toggle('bg-surface-container-high')">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- List Item 102 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm flex items-center gap-md active:bg-surface-container transition-colors">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex flex-col items-center justify-center">
+<span class="font-title-md text-title-md text-primary">102</span>
+<span class="font-label-md text-label-md text-outline">Piso 1</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Elena Martínez</h3>
+<div class="flex items-center gap-sm mt-1">
+<span class="px-sm py-[2px] bg-error-container text-on-error-container font-label-md text-[10px] rounded-full uppercase">Deuda: $4,500</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Inquilino</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- List Item 201 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm flex items-center gap-md active:bg-surface-container transition-colors">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex flex-col items-center justify-center">
+<span class="font-title-md text-title-md text-primary">201</span>
+<span class="font-label-md text-label-md text-outline">Piso 2</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Roberto Gómez</h3>
+<div class="flex items-center gap-sm mt-1">
+<span class="px-sm py-[2px] bg-tertiary-container/20 text-on-tertiary-container font-label-md text-[10px] rounded-full uppercase">Al Día</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Propietario</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- List Item 202 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm flex items-center gap-md active:bg-surface-container transition-colors">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex flex-col items-center justify-center">
+<span class="font-title-md text-title-md text-primary">202</span>
+<span class="font-label-md text-label-md text-outline">Piso 2</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Sofía Valenzuela</h3>
+<div class="flex items-center gap-sm mt-1">
+<span class="px-sm py-[2px] bg-tertiary-container/20 text-on-tertiary-container font-label-md text-[10px] rounded-full uppercase">Al Día</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Propietario</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Empty State Visual Cue -->
+<div class="mt-lg p-xl flex flex-col items-center text-center">
+<div class="w-24 h-24 bg-surface-container rounded-full flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-outline text-[40px] animate-pulse">location_city</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant italic">Cargando más unidades de la Torre A...</p>
+</div>
+</div>
+<!-- Floating Quick Add (Alternative for thumb reach) -->
+<button class="fixed bottom-lg right-md bg-primary-container text-on-primary-container p-md rounded-2xl shadow-xl flex items-center gap-sm active:scale-95 transition-all z-10">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-widest">Nueva Unidad</span>
+</button>
+</div>
+<script>
+    // Ripple and interaction feedback for list items
+    document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
+        card.addEventListener('touchstart', () => {
+            card.classList.add('scale-[0.98]');
+        });
+        card.addEventListener('touchend', () => {
+            card.classList.remove('scale-[0.98]');
+        });
+        card.addEventListener('click', () => {
+            // Simulated navigation delight: pulse the unit number
+            const unitTag = card.querySelector('.bg-surface-container');
+            unitTag.classList.add('bg-primary', 'text-on-primary');
+            setTimeout(() => {
+                unitTag.classList.remove('bg-primary', 'text-on-primary');
+            }, 300);
+        });
+    });
+
+    // Simple scroll reveal for list items
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.bg-surface-container-lowest').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(el);
+    });
+</script>
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style></main></body></html>

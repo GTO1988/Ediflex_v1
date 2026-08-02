@@ -1,0 +1,215 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-fixed-dim": "#b2c5ff", "surface-container-high": "#dee8ff", "inverse-primary": "#b2c5ff", "on-error-container": "#93000a", "surface-container-low": "#f0f3ff", "on-error": "#ffffff", "tertiary-container": "#004b32", "on-primary-fixed-variant": "#1b4292", "primary-container": "#123c8c", "tertiary-fixed-dim": "#4edea3", "surface-container-highest": "#d8e3fb", "on-primary": "#ffffff", "on-background": "#111c2d", "on-tertiary-fixed": "#002113", "secondary-container": "#adc3ff", "background": "#f9f9ff", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "primary": "#002667", "on-tertiary-fixed-variant": "#005236", "on-tertiary-container": "#29c48b", "secondary-fixed": "#dae2ff", "error-container": "#ffdad6", "on-secondary-fixed": "#001947", "tertiary": "#003220", "primary-fixed": "#dae2ff", "inverse-on-surface": "#ecf1ff", "surface-container": "#e7eeff", "outline-variant": "#c4c6d3", "on-secondary-container": "#394f84", "on-tertiary": "#ffffff", "surface": "#f9f9ff", "surface-bright": "#f9f9ff", "secondary-fixed-dim": "#b1c5ff", "surface-dim": "#cfdaf2", "surface-variant": "#d8e3fb", "secondary": "#475d92", "on-primary-fixed": "#001848", "tertiary-fixed": "#6ffbbe", "outline": "#747783", "on-secondary": "#ffffff", "on-primary-container": "#8babff", "on-surface-variant": "#434651", "on-surface": "#111c2d", "on-secondary-fixed-variant": "#2f4579", "surface-tint": "#385bac", "inverse-surface": "#263143" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-desktop": "32px", "sm": "8px", "xs": "4px", "lg": "24px", "gutter": "16px", "base": "4px", "md": "16px", "margin-mobile": "16px", "xl": "32px" }, "fontFamily": { "body-md": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "title-md": ["Inter"], "display-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script><style>@layer base { body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-on-background min-h-screen pt-safe pb-safe"><main class="relative w-full h-full bg-surface"><div class="flex flex-col w-full px-margin-mobile pb-xl">
+<!-- Header Section with Greeting -->
+<div class="mb-lg flex flex-col gap-xs">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Reservar Espacio</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Planifica tu próximo momento de relax o actividad en el edificio.</p>
+</div>
+<!-- Date Selection Scroller -->
+<div class="mb-lg">
+<div class="flex items-center justify-between mb-sm">
+<span class="font-title-md text-title-md text-on-surface">Selecciona Fecha</span>
+<button class="font-label-md text-label-md text-primary flex items-center gap-xs">
+                Ver calendario <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</button>
+</div>
+<div class="flex gap-md overflow-x-auto pb-sm no-scrollbar" id="date-selector">
+<!-- Dates dynamically generated or static for UX demo -->
+<button class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-xl bg-primary text-on-primary shadow-md transition-transform active:scale-95">
+<span class="font-label-md text-label-md opacity-80 uppercase">Hoy</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile">24</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-xl bg-surface-container-low text-on-surface-variant transition-transform active:scale-95">
+<span class="font-label-md text-label-md uppercase">Lun</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-xl bg-surface-container-low text-on-surface-variant transition-transform active:scale-95">
+<span class="font-label-md text-label-md uppercase">Mar</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-xl bg-surface-container-low text-on-surface-variant transition-transform active:scale-95">
+<span class="font-label-md text-label-md uppercase">Mié</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-xl bg-surface-container-low text-on-surface-variant transition-transform active:scale-95">
+<span class="font-label-md text-label-md uppercase">Jue</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile">28</span>
+</button>
+</div>
+</div>
+<!-- Available Amenities List -->
+<div class="flex flex-col gap-md">
+<h2 class="font-title-md text-title-md text-on-surface">Áreas Comunes</h2>
+<!-- Amenity Card: Gym -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col group transition-all hover:shadow-md">
+<div class="flex p-md gap-md">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A modern building fitness center with high-end cardio equipment, floor-to-ceiling windows showing a city skyline, warm wooden floors, and bright morning sunlight. The style is clean, professional, and minimalist, echoing a luxury residential building's aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz3Uruvt3P3fuiHJzNHNZJ3-FbxVAcdJDbiF-2_WVyT86suKZoq7lsHBG7dhWvTOXWX_slEhAcNiORd2nqi8h_ZaznpLp3dz3avC8YGOic1TwFJebJ-ZyhKpUDf1ILrfHxd2_FveVhlU_SyThU2yjsNyqqXGRPVRSbcOcfFh8JnYiapgY1CxvMenQgrN0odv4uKFF6A-wCETPsmIze_K7L9WXX3rznFYBwii4PbxiFKvkLaLaCSFbl"/>
+</div>
+<div class="flex flex-col justify-between flex-1 py-xs">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface">Gimnasio</h3>
+<span class="bg-tertiary-container text-on-tertiary-container px-sm py-xs rounded-full font-label-md text-[10px] uppercase">Disponible</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Torre A, Piso 2. Equipamiento completo.</p>
+</div>
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="font-label-md text-label-md">Capacidad: 12 pers.</span>
+</div>
+</div>
+</div>
+<!-- Time Selection for Card -->
+<div class="px-md pb-md">
+<div class="flex gap-sm overflow-x-auto no-scrollbar py-sm">
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap active:bg-primary active:text-on-primary transition-colors">07:00 - 08:30</button>
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap active:bg-primary active:text-on-primary transition-colors">08:30 - 10:00</button>
+<button class="px-md py-sm rounded-full bg-primary-container text-on-primary-container font-label-md whitespace-nowrap ring-2 ring-primary">10:00 - 11:30</button>
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap active:bg-primary active:text-on-primary transition-colors">11:30 - 13:00</button>
+</div>
+<button class="w-full bg-primary text-on-primary py-md rounded-lg font-title-md mt-sm active:scale-[0.98] transition-transform">
+                    Reservar Gimnasio
+                </button>
+</div>
+</div>
+<!-- Amenity Card: SUM -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col group transition-all hover:shadow-md">
+<div class="flex p-md gap-md">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A spacious multi-purpose social room (SUM) in a modern apartment complex. Features elegant lounge chairs, a large community table, soft ambient lighting from recessed ceiling fixtures, and a glass-walled terrace access. Warm interior design with navy blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKn_82WHLlxHtjl_bAj5gaOtR7k6_BtG2PbLCMX8SVFdLyndBjs1-vB43StX-ekNf6pf5P6noPqcaCh15H90OxoNAfeMz8nfp5RHgxgjiBCXbb_kyZ9cJdHMlONkPSNkiJl2aNh9PvvAfA1o-pZeCHqnUkV4eIBjQkWSBrsQTuRgrxHBJO9hwaO_heFUltrIDhq4P9r105CWNvriCScRl9VxG3CgvC2xc2vmvS-u00KfEO5zKu1y9m"/>
+</div>
+<div class="flex flex-col justify-between flex-1 py-xs">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface">SUM (Salón Social)</h3>
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full font-label-md text-[10px] uppercase">Pocos cupos</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Planta Baja. Kitchenette y Parrilla.</p>
+</div>
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-label-md text-label-md">Costo Limpieza: $2.500</span>
+</div>
+</div>
+</div>
+<div class="px-md pb-md">
+<div class="flex gap-sm overflow-x-auto no-scrollbar py-sm opacity-50">
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap line-through decoration-on-error">12:00 - 16:00</button>
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap active:bg-primary active:text-on-primary transition-colors">18:00 - 22:00</button>
+</div>
+<button class="w-full bg-outline-variant text-on-surface-variant py-md rounded-lg font-title-md mt-sm cursor-not-allowed">
+                    Seleccionar Horario
+                </button>
+</div>
+</div>
+<!-- Amenity Card: Pool -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col group transition-all hover:shadow-md">
+<div class="flex p-md gap-md">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A luxury rooftop infinity pool at dusk. Crystal clear turquoise water reflects a soft purple sky. Minimalist wooden decking and white sun loungers surround the water. High-end architectural photography, cinematic lighting, serene atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFyWqOfQ4AhJQ-Icjo8e959XwNqULXruY0wIJsw3VAepzS_lKQV6uvqcjeBprHeR65s_OanYvB-W0qaRAoNqzShElbjJNJ3lFoActjSQv8qkOXhzD2b4dLFerlyQWHx7FtLtbhnAvcFq48CAYBOdy347lK6Zm2OZrL42_UfH_pmsFHaY8StSN09I58kzWRjudS_gr0reDi26ZrTpwGTKhiHR7XIA3Vlmi2D53oUp9fRpJZh4REXl8N"/>
+</div>
+<div class="flex flex-col justify-between flex-1 py-xs">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface">Piscina</h3>
+<span class="bg-tertiary-container text-on-tertiary-container px-sm py-xs rounded-full font-label-md text-[10px] uppercase">Disponible</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Azotea - Piso 22. Vista panorámica.</p>
+</div>
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">sunny</span>
+<span class="font-label-md text-label-md">Exterior / Climatizada</span>
+</div>
+</div>
+</div>
+<div class="px-md pb-md">
+<div class="flex gap-sm overflow-x-auto no-scrollbar py-sm">
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap active:bg-primary active:text-on-primary transition-colors">10:00 - 12:00</button>
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap active:bg-primary active:text-on-primary transition-colors">14:00 - 16:00</button>
+<button class="px-md py-sm rounded-full bg-surface-container-high text-on-surface-variant font-label-md whitespace-nowrap active:bg-primary active:text-on-primary transition-colors">16:00 - 18:00</button>
+</div>
+<button class="w-full bg-primary text-on-primary py-md rounded-lg font-title-md mt-sm active:scale-[0.98] transition-transform">
+                    Reservar Piscina
+                </button>
+</div>
+</div>
+</div>
+<!-- Help Empty State Hint (Subtle) -->
+<div class="mt-xl p-lg bg-surface-container-low rounded-xl flex flex-col items-center text-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[32px] opacity-40">info</span>
+<p class="font-body-md text-body-md text-on-surface-variant">¿No encuentras el área que buscas? Contacta a la administración desde el chat de soporte.</p>
+</div>
+</div>
+<script>
+    // Micro-interactions for date selection
+    document.querySelectorAll('#date-selector button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Reset others
+            document.querySelectorAll('#date-selector button').forEach(b => {
+                b.classList.remove('bg-primary', 'text-on-primary', 'shadow-md');
+                b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+                b.querySelector('span:first-child').classList.add('opacity-80');
+            });
+            // Set current
+            this.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+            this.classList.add('bg-primary', 'text-on-primary', 'shadow-md');
+            this.querySelector('span:first-child').classList.remove('opacity-80');
+        });
+    });
+
+    // Handle Reservation Button Clicks
+    document.querySelectorAll('button').forEach(btn => {
+        if(btn.innerText.includes('Reservar')) {
+            btn.addEventListener('click', function() {
+                const amenity = this.innerText.replace('Reservar ', '');
+                this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Procesando...';
+                this.classList.add('opacity-80');
+                
+                setTimeout(() => {
+                    this.innerHTML = '<span class="material-symbols-outlined">check_circle</span> ¡Reservado!';
+                    this.classList.remove('bg-primary', 'opacity-80');
+                    this.classList.add('bg-tertiary-container', 'text-on-tertiary-container');
+                    
+                    // Simple feedback toast simulation
+                    console.log(`Reserva confirmada para ${amenity}`);
+                }, 1200);
+            });
+        }
+    });
+
+    // Time Slot Selection logic
+    document.querySelectorAll('.flex.gap-sm.overflow-x-auto button').forEach(slot => {
+        slot.addEventListener('click', function() {
+            const parent = this.parentElement;
+            parent.querySelectorAll('button').forEach(b => {
+                b.classList.remove('bg-primary-container', 'text-on-primary-container', 'ring-2', 'ring-primary');
+                b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+            });
+            this.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            this.classList.add('bg-primary-container', 'text-on-primary-container', 'ring-2', 'ring-primary');
+            
+            // Activate the primary button below
+            const reserveBtn = parent.nextElementSibling;
+            if(reserveBtn && reserveBtn.tagName === 'BUTTON' && reserveBtn.classList.contains('bg-outline-variant')) {
+                 reserveBtn.classList.remove('bg-outline-variant', 'text-on-surface-variant', 'cursor-not-allowed');
+                 reserveBtn.classList.add('bg-primary', 'text-on-primary');
+                 reserveBtn.innerText = 'Reservar Horario';
+            }
+        });
+    });
+</script>
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style></main></body></html>

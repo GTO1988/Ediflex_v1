@@ -1,0 +1,171 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-fixed-dim": "#b2c5ff", "surface-container-high": "#dee8ff", "inverse-primary": "#b2c5ff", "on-error-container": "#93000a", "surface-container-low": "#f0f3ff", "on-error": "#ffffff", "tertiary-container": "#004b32", "on-primary-fixed-variant": "#1b4292", "primary-container": "#123c8c", "tertiary-fixed-dim": "#4edea3", "surface-container-highest": "#d8e3fb", "on-primary": "#ffffff", "on-background": "#111c2d", "on-tertiary-fixed": "#002113", "secondary-container": "#adc3ff", "background": "#f9f9ff", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "primary": "#002667", "on-tertiary-fixed-variant": "#005236", "on-tertiary-container": "#29c48b", "secondary-fixed": "#dae2ff", "error-container": "#ffdad6", "on-secondary-fixed": "#001947", "tertiary": "#003220", "primary-fixed": "#dae2ff", "inverse-on-surface": "#ecf1ff", "surface-container": "#e7eeff", "outline-variant": "#c4c6d3", "on-secondary-container": "#394f84", "on-tertiary": "#ffffff", "surface": "#f9f9ff", "surface-bright": "#f9f9ff", "secondary-fixed-dim": "#b1c5ff", "surface-dim": "#cfdaf2", "surface-variant": "#d8e3fb", "secondary": "#475d92", "on-primary-fixed": "#001848", "tertiary-fixed": "#6ffbbe", "outline": "#747783", "on-secondary": "#ffffff", "on-primary-container": "#8babff", "on-surface-variant": "#434651", "on-surface": "#111c2d", "on-secondary-fixed-variant": "#2f4579", "surface-tint": "#385bac", "inverse-surface": "#263143" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-desktop": "32px", "sm": "8px", "xs": "4px", "lg": "24px", "gutter": "16px", "base": "4px", "md": "16px", "margin-mobile": "16px", "xl": "32px" }, "fontFamily": { "body-md": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "title-md": ["Inter"], "display-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script><style>@layer base { body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } ::-webkit-scrollbar { display: none; }</style></head><body class="bg-background font-body-md text-on-background min-h-screen pt-safe pb-safe"><main class="relative w-full h-full bg-surface"><div class="flex flex-col w-full">
+<!-- Header Section: Subtle branding and context -->
+<div class="px-md py-lg bg-surface flex flex-col gap-xs">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">water_drop</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline">EDIFLEX MANAGEMENT</p>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Lectura de Agua</h1>
+</div>
+</div>
+</div>
+<!-- Main Entry Card Area -->
+<div class="px-md pb-xl flex flex-col gap-md">
+<!-- Unit Selection & Current Reading Form -->
+<div class="bg-surface-container-low rounded-xl p-md shadow-sm flex flex-col gap-md">
+<!-- Unit Selector -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">Departamento</label>
+<div class="relative">
+<select class="w-full h-12 px-md pr-xl bg-surface-container-lowest text-on-surface font-body-lg rounded-lg appearance-none border-0 focus:ring-2 focus:ring-primary outline-none">
+<option>Depto 401</option>
+<option selected="">Depto 402</option>
+<option>Depto 403</option>
+<option>Depto 501</option>
+<option>Depto 502</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Comparison Block -->
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container rounded-lg p-sm flex flex-col gap-xs">
+<p class="font-label-md text-label-md text-on-surface-variant">Lectura Anterior</p>
+<div class="flex items-baseline gap-xs">
+<span class="font-title-md text-title-md text-on-surface">1,248.50</span>
+<span class="font-label-md text-label-md text-outline">m³</span>
+</div>
+</div>
+<div class="bg-tertiary-container rounded-lg p-sm flex flex-col gap-xs transition-colors duration-300" id="consumption-pill">
+<p class="font-label-md text-label-md text-on-tertiary-container">Consumo Estimado</p>
+<div class="flex items-baseline gap-xs">
+<span class="font-title-md text-title-md text-on-tertiary-container" id="consumption-value">0.00</span>
+<span class="font-label-md text-label-md text-on-tertiary-container">m³</span>
+</div>
+</div>
+</div>
+<!-- Reading Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">Lectura Actual (m³)</label>
+<div class="relative flex items-center">
+<input class="w-full h-14 px-md bg-surface-container-lowest text-on-surface font-display-lg rounded-lg border-0 focus:ring-2 focus:ring-primary outline-none placeholder:text-surface-dim" id="reading-input" placeholder="0.00" step="0.01" type="number"/>
+<span class="absolute right-md material-symbols-outlined text-primary">edit</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full h-14 bg-primary text-on-primary font-title-md rounded-xl shadow-md active:scale-[0.98] transition-transform flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">save</span>
+                Guardar Registro
+            </button>
+</div>
+<!-- History & Anomalies Section -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center justify-between px-xs">
+<h2 class="font-title-md text-title-md text-on-surface">Historial Reciente</h2>
+<span class="font-label-md text-label-md text-primary">Ver todos</span>
+</div>
+<!-- History List -->
+<div class="flex flex-col gap-xs">
+<!-- Record 1 (Normal) -->
+<div class="bg-surface-container-lowest rounded-xl p-md flex items-center justify-between">
+<div class="flex flex-col">
+<p class="font-body-md text-body-md text-on-surface">Octubre 2023</p>
+<p class="font-label-md text-label-md text-outline">15 Oct • 1,248.50 m³</p>
+</div>
+<div class="text-right">
+<p class="font-title-md text-title-md text-on-surface">12.4 m³</p>
+<span class="font-label-md text-label-md text-on-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded-full">Normal</span>
+</div>
+</div>
+<!-- Record 2 (Anomaly Example) -->
+<div class="bg-surface-container-lowest rounded-xl p-md flex items-center justify-between relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md text-on-surface">Septiembre 2023</p>
+<p class="font-label-md text-label-md text-outline">12 Sep • 1,236.10 m³</p>
+</div>
+<div class="text-right">
+<p class="font-title-md text-title-md text-error">24.8 m³</p>
+<div class="flex items-center justify-end gap-1 text-on-error-container">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-label-md text-label-md">Anomalía</span>
+</div>
+</div>
+</div>
+<!-- Record 3 (Normal) -->
+<div class="bg-surface-container-lowest rounded-xl p-md flex items-center justify-between">
+<div class="flex flex-col">
+<p class="font-body-md text-body-md text-on-surface">Agosto 2023</p>
+<p class="font-label-md text-label-md text-outline">14 Ago • 1,211.30 m³</p>
+</div>
+<div class="text-right">
+<p class="font-title-md text-title-md text-on-surface">11.9 m³</p>
+<span class="font-label-md text-label-md text-on-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded-full">Normal</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Illustration / Empty State Helper -->
+<div class="mt-md p-lg bg-surface-container-high rounded-3xl flex flex-col items-center text-center gap-sm">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl">insights</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Optimización de Recursos</p>
+<p class="font-body-md text-body-md text-on-surface-variant px-md">El consumo promedio de este departamento es de 12.2 m³ por mes.</p>
+</div>
+</div>
+</div>
+<!-- Client-side Logic for Interactive Consumption Calculation -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const readingInput = document.getElementById('reading-input');
+            const consumptionValue = document.getElementById('consumption-value');
+            const consumptionPill = document.getElementById('consumption-pill');
+            const previousReading = 1248.50;
+
+            readingInput.addEventListener('input', (e) => {
+                const current = parseFloat(e.target.value);
+                if (!isNaN(current) && current >= previousReading) {
+                    const diff = (current - previousReading).toFixed(2);
+                    consumptionValue.textContent = diff;
+                    
+                    // Visual feedback for anomaly detection (arbitrary threshold of 20m3)
+                    if (diff > 20) {
+                        consumptionPill.classList.remove('bg-tertiary-container');
+                        consumptionPill.classList.add('bg-error-container');
+                        consumptionValue.classList.replace('text-on-tertiary-container', 'text-on-error-container');
+                        
+                        // Select all on-tertiary-container children and flip them
+                        consumptionPill.querySelectorAll('.text-on-tertiary-container').forEach(el => {
+                            el.classList.replace('text-on-tertiary-container', 'text-on-error-container');
+                        });
+                    } else {
+                        consumptionPill.classList.add('bg-tertiary-container');
+                        consumptionPill.classList.remove('bg-error-container');
+                        
+                        consumptionPill.querySelectorAll('.text-on-error-container').forEach(el => {
+                            el.classList.replace('text-on-error-container', 'text-on-tertiary-container');
+                        });
+                    }
+                } else {
+                    consumptionValue.textContent = '0.00';
+                }
+            });
+
+            // Touch effect for cards
+            const cards = document.querySelectorAll('.bg-surface-container-lowest');
+            cards.forEach(card => {
+                card.addEventListener('touchstart', () => {
+                    card.classList.add('scale-[0.99]', 'bg-surface-container');
+                });
+                card.addEventListener('touchend', () => {
+                    card.classList.remove('scale-[0.99]', 'bg-surface-container');
+                });
+            });
+        });
+    </script>
+</div></main></body></html>
