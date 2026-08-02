@@ -1,151 +1,86 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import './styles.css'
 
-type Route = {
-  path: string
-  label: string
-  icon: string
-  group: 'Principal' | 'Gestión'
-}
+type Role = 'resident' | 'admin' | 'super'
+type Route = { path: string; label: string; icon: string; group: string; roles: Role[] }
 
 const routes: Route[] = [
-  { path: '/resident', label: 'Inicio', icon: '⌂', group: 'Principal' },
-  { path: '/resident/account', label: 'Estado de cuenta', icon: '$', group: 'Principal' },
-  { path: '/resident/payments', label: 'Historial de pagos', icon: '↗', group: 'Principal' },
-  { path: '/resident/payment/new', label: 'Registrar pago', icon: '+', group: 'Principal' },
-  { path: '/resident/reservations', label: 'Reservas', icon: '◷', group: 'Principal' },
-  { path: '/resident/announcements', label: 'Comunicados', icon: '✦', group: 'Principal' },
-  { path: '/resident/documents', label: 'Documentos', icon: '▤', group: 'Principal' },
-  { path: '/admin', label: 'Panel administrador', icon: '▦', group: 'Gestión' },
-  { path: '/admin/payments', label: 'Pagos', icon: '$', group: 'Gestión' },
-  { path: '/admin/reservations', label: 'Gestionar reservas', icon: '◷', group: 'Gestión' },
-  { path: '/admin/announcements', label: 'Gestionar comunicados', icon: '✦', group: 'Gestión' },
-  { path: '/admin/documents', label: 'Gestionar documentos', icon: '▤', group: 'Gestión' },
-  { path: '/admin/water', label: 'Lecturas de agua', icon: '♧', group: 'Gestión' },
-  { path: '/admin/buildings', label: 'Edificios', icon: '⌂', group: 'Gestión' },
-  { path: '/super-admin', label: 'Super Admin', icon: '◈', group: 'Gestión' },
+  { path: '/resident', label: 'Dashboard', icon: 'home', group: 'Residente', roles: ['resident'] },
+  { path: '/resident/account', label: 'Estado de cuenta', icon: 'account_balance_wallet', group: 'Residente', roles: ['resident'] },
+  { path: '/resident/payments', label: 'Historial de pagos', icon: 'receipt_long', group: 'Residente', roles: ['resident'] },
+  { path: '/resident/payment/new', label: 'Pago de mantenimiento', icon: 'payments', group: 'Residente', roles: ['resident'] },
+  { path: '/resident/reservations', label: 'Reservar área', icon: 'event_available', group: 'Residente', roles: ['resident'] },
+  { path: '/resident/announcements', label: 'Comunicados', icon: 'campaign', group: 'Comunidad', roles: ['resident'] },
+  { path: '/resident/documents', label: 'Documentos', icon: 'folder_open', group: 'Comunidad', roles: ['resident'] },
+  { path: '/admin', label: 'Dashboard admin', icon: 'space_dashboard', group: 'Administrador', roles: ['admin'] },
+  { path: '/admin/payments', label: 'Gestión de pagos', icon: 'fact_check', group: 'Administrador', roles: ['admin'] },
+  { path: '/admin/reservations', label: 'Gestión de reservas', icon: 'event_note', group: 'Administrador', roles: ['admin'] },
+  { path: '/admin/announcements', label: 'Gestión comunicados', icon: 'edit_notifications', group: 'Administrador', roles: ['admin'] },
+  { path: '/admin/documents', label: 'Gestión documentos', icon: 'drive_folder_upload', group: 'Administrador', roles: ['admin'] },
+  { path: '/admin/water', label: 'Consumo de agua', icon: 'water_drop', group: 'Administrador', roles: ['admin'] },
+  { path: '/super-admin', label: 'Dashboard superadmin', icon: 'admin_panel_settings', group: 'Superadmin', roles: ['super'] },
+  { path: '/super-admin/buildings', label: 'Gestión de edificios', icon: 'domain', group: 'Superadmin', roles: ['super'] },
 ]
 
-const screenNames: Record<string, { eyebrow: string; title: string; description: string }> = {
-  '/resident/account': { eyebrow: 'Finanzas', title: 'Estado de cuenta', description: 'Consulta tu liquidación mensual y movimientos.' },
-  '/resident/payments': { eyebrow: 'Finanzas', title: 'Historial de pagos', description: 'Revisa los pagos y comprobantes asociados a tu departamento.' },
-  '/resident/payment/new': { eyebrow: 'Finanzas', title: 'Registrar pago', description: 'Envía el comprobante de tu pago de mantenimiento.' },
-  '/resident/reservations': { eyebrow: 'Comunidad', title: 'Reservas', description: 'Encuentra un área común disponible para tu próxima actividad.' },
-  '/resident/announcements': { eyebrow: 'Comunidad', title: 'Comunicados', description: 'Mantente al día con las novedades de tu edificio.' },
-  '/resident/documents': { eyebrow: 'Biblioteca', title: 'Documentos y reglamentos', description: 'Accede a la información importante de tu comunidad.' },
-  '/admin': { eyebrow: 'Operación', title: 'Panel administrador', description: 'Una vista rápida de lo que necesita atención hoy.' },
-  '/admin/payments': { eyebrow: 'Operación', title: 'Gestión de pagos', description: 'Revisa liquidaciones y comprobantes de tu edificio.' },
-  '/admin/reservations': { eyebrow: 'Operación', title: 'Gestión de reservas', description: 'Administra áreas comunes y solicitudes pendientes.' },
-  '/admin/announcements': { eyebrow: 'Comunicación', title: 'Gestión de comunicados', description: 'Publica información relevante para los residentes.' },
-  '/admin/documents': { eyebrow: 'Biblioteca', title: 'Gestión de documentos', description: 'Organiza reglamentos y documentos del edificio.' },
-  '/admin/water': { eyebrow: 'Operación', title: 'Lecturas de agua', description: 'Registra y revisa el consumo de cada departamento.' },
-  '/admin/buildings': { eyebrow: 'Configuración', title: 'Gestión de edificios', description: 'Organiza edificios, departamentos y responsables.' },
-  '/super-admin': { eyebrow: 'Plataforma', title: 'Super Admin', description: 'Supervisa el estado general de Ediflex.' },
-}
+const money = ['Mantenimiento julio', 'Cuota extraordinaria', 'Fondo de reserva']
+const payments = ['Transferencia validada', 'Yape pendiente', 'Pago observado']
+const docs = ['Reglamento interno.pdf', 'Acta de asamblea.pdf', 'Manual de convivencia.pdf']
+const announcements = ['Mantenimiento de ascensores', 'Asamblea general anual', 'Corte temporal de agua']
 
-function useHashRoute() {
-  const getPath = () => window.location.hash.replace(/^#/, '') || '/resident'
-  const [path, setPath] = useState(getPath)
+function getPath() { return window.location.hash.replace(/^#/, '') || '/splash' }
+function useHashRoute() { const [path, setPath] = useState(getPath); useEffect(() => { const on = () => setPath(getPath()); addEventListener('hashchange', on); return () => removeEventListener('hashchange', on) }, []); return path }
 
-  useEffect(() => {
-    const handleHashChange = () => setPath(getPath())
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [])
-
-  return path
-}
-
-function App() {
+export default function App() {
   const path = useHashRoute()
-  const isResident = path.startsWith('/resident') || path === '/'
-  const isDashboard = path === '/' || path === '/resident' || path === '/admin'
-  const activeRoute = routes.find((route) => route.path === path) ?? routes[0]
-  const screen = path === '/' || path === '/resident' ? null : screenNames[path]
-
-  return (
-    <AppShell activePath={path} activeRoute={activeRoute}>
-      {isDashboard ? (
-        isResident ? <ResidentDashboard /> : <AdminDashboard />
-      ) : screen ? (
-        <ScreenPage {...screen} />
-      ) : (
-        <NotFound />
-      )}
-    </AppShell>
-  )
+  if (path === '/splash') return <Splash />
+  if (path === '/login') return <Login />
+  return <Shell path={path}><Page path={path} /></Shell>
 }
 
-function AppShell({ children, activePath, activeRoute }: { children: ReactNode; activePath: string; activeRoute: Route }) {
-  const mainRoutes = routes.filter((route) => route.group === 'Principal')
-  const managementRoutes = routes.filter((route) => route.group === 'Gestión')
-
-  return (
-    <div className="app-shell">
-      <aside className="sidebar">
-        <a className="brand" href="#/resident" aria-label="Ir al inicio de Ediflex">
-          <span className="brand-mark">e</span>
-          <span>ediflex</span>
-        </a>
-        <div className="sidebar-context">
-          <span className="overline">Edificio activo</span>
-          <strong>Residencial Aurora</strong>
-          <span className="muted">Torre A · Depto. 304</span>
-        </div>
-        <nav aria-label="Navegación principal">
-          <span className="nav-heading">Principal</span>
-          {mainRoutes.map((route) => <NavLink key={route.path} route={route} activePath={activePath} />)}
-          <span className="nav-heading nav-heading-spaced">Gestión</span>
-          {managementRoutes.map((route) => <NavLink key={route.path} route={route} activePath={activePath} />)}
-        </nav>
-        <div className="sidebar-footer">
-          <div className="avatar avatar-small">AR</div>
-          <div><strong>Alex Rivera</strong><span className="muted">Residente</span></div>
-          <button className="icon-button" aria-label="Abrir menú de usuario">•••</button>
-        </div>
-      </aside>
-
-      <main className="main-content">
-        <header className="topbar">
-          <div className="mobile-brand"><span className="brand-mark">e</span> ediflex</div>
-          <div className="breadcrumb"><span>Edificio Aurora</span><span className="breadcrumb-separator">/</span><strong>{activeRoute.label}</strong></div>
-          <div className="topbar-actions"><button className="notification-button" aria-label="Notificaciones">♢<span className="notification-dot" /></button><div className="avatar">AR</div></div>
-        </header>
-        <div className="content-container">{children}</div>
-      </main>
-
-      <nav className="bottom-nav" aria-label="Navegación móvil">
-        {mainRoutes.slice(0, 5).map((route) => <NavLink key={route.path} route={route} activePath={activePath} mobile />)}
-      </nav>
-    </div>
-  )
+function Shell({ children, path }: { children: ReactNode; path: string }) {
+  const role: Role = path.startsWith('/admin') ? 'admin' : path.startsWith('/super') ? 'super' : 'resident'
+  const visible = routes.filter(r => r.roles.includes(role) || (role === 'admin' && r.roles.includes('resident')))
+  const groups = [...new Set(visible.map(r => r.group))]
+  const active = routes.find(r => r.path === path) ?? routes[0]
+  return <div className="app-shell">
+    <aside className="sidebar">
+      <Brand />
+      <BuildingCard />
+      <nav className="side-nav">{groups.map(g => <div key={g}><p className="nav-heading">{g}</p>{visible.filter(r => r.group === g).map(r => <NavLink key={r.path} route={r} path={path} />)}</div>)}</nav>
+      <UserCard />
+    </aside>
+    <main className="main">
+      <header className="topbar"><Brand compact /><div className="breadcrumb"><span>Residencial Aurora</span><span>/</span><b>{active.label}</b></div><div className="top-actions"><button className="icon-btn material-symbols-outlined">notifications</button><div className="avatar">JP</div></div></header>
+      <section className="content">{children}</section>
+    </main>
+    <nav className="bottom-nav">{visible.slice(0,5).map(r => <NavLink key={r.path} route={r} path={path} mobile />)}</nav>
+  </div>
 }
 
-function NavLink({ route, activePath, mobile = false }: { route: Route; activePath: string; mobile?: boolean }) {
-  const active = activePath === route.path || (route.path === '/resident' && activePath === '/')
-  return <a className={`nav-link ${active ? 'active' : ''} ${mobile ? 'mobile-link' : ''}`} href={`#${route.path}`}><span className="nav-icon">{route.icon}</span><span>{route.label}</span></a>
+function Brand({ compact=false }: { compact?: boolean }) { return <a href="#/resident" className={`brand ${compact ? 'compact' : ''}`}><span className="logo-mark">E</span><span><b>EDIFLEX</b>{!compact && <small>Smart Management Suite</small>}</span></a> }
+function BuildingCard() { return <div className="building-card"><span className="material-symbols-outlined">domain</span><div><b>Residencial Aurora</b><small>Torre Norte · Depto 402</small></div></div> }
+function UserCard() { return <div className="user-card"><div className="avatar">JP</div><div><b>Juan Pérez</b><small>Residente</small></div><a href="#/login" className="material-symbols-outlined">logout</a></div> }
+function NavLink({ route, path, mobile=false }: { route: Route; path: string; mobile?: boolean }) { return <a href={`#${route.path}`} className={`nav-link ${path === route.path ? 'active' : ''} ${mobile ? 'mobile' : ''}`}><span className="material-symbols-outlined">{route.icon}</span><em>{route.label}</em></a> }
+
+function Page({ path }: { path: string }) {
+  const page = useMemo(() => ({
+    '/resident': <ResidentDashboard />, '/resident/account': <Account />, '/resident/payments': <ListPage title="Historial de pagos" eyebrow="Finanzas" icon="receipt_long" items={payments} action="Descargar comprobante" />, '/resident/payment/new': <PaymentNew />, '/resident/reservations': <Reservations />, '/resident/announcements': <ListPage title="Comunicados" eyebrow="Comunidad" icon="campaign" items={announcements} action="Leer más" />, '/resident/documents': <ListPage title="Documentos y Reglamento" eyebrow="Biblioteca" icon="folder_open" items={docs} action="Ver documento" />, '/admin': <AdminDashboard />, '/admin/payments': <Management title="Gestión de pagos" metric="8 pagos por validar" icon="fact_check" />, '/admin/reservations': <Management title="Gestión de reservas" metric="3 solicitudes pendientes" icon="event_note" />, '/admin/announcements': <Management title="Gestión de comunicados" metric="12 publicados" icon="edit_notifications" />, '/admin/documents': <Management title="Gestión de documentos" metric="24 archivos activos" icon="drive_folder_upload" />, '/admin/water': <Water />, '/super-admin': <SuperDashboard />, '/super-admin/buildings': <Buildings />,
+  }[path]), [path])
+  return page ?? <ListPage title="Pantalla no encontrada" eyebrow="404" icon="error" items={['Ruta no disponible']} action="Volver" />
 }
 
-function ResidentDashboard() {
-  return <>
-    <div className="page-heading"><div><span className="eyebrow">Martes, 12 de marzo</span><h1>Buenos días, Alex <span className="wave">✦</span></h1><p>Todo lo importante de tu hogar, en un solo lugar.</p></div><button className="button button-primary" onClick={() => { window.location.hash = '/resident/reservations' }}>Nueva reserva <span>+</span></button></div>
-    <section className="hero-card"><div><span className="hero-label">Liquidación de marzo</span><strong className="hero-amount">S/ 248.50</strong><span className="hero-meta">Vence el 31 de marzo · Depto. 304</span><a href="#/resident/account" className="hero-link">Ver estado de cuenta <span>→</span></a></div><div className="hero-illustration" aria-hidden="true"><span>✦</span><span>○</span><span>⌂</span></div></section>
-    <section className="stats-grid"><StatCard label="Saldo pendiente" value="S/ 248.50" hint="Vence en 19 días" tone="teal" icon="$" /><StatCard label="Próxima reserva" value="Sábado, 16" hint="Terraza · 4:00 PM" tone="lilac" icon="◷" /><StatCard label="Consumo de agua" value="12.4 m³" hint="8% menos que febrero" tone="peach" icon="♧" /></section>
-    <div className="dashboard-columns"><section className="panel"><PanelHeader title="Actividad reciente" action="Ver todo" href="#/resident/account" /><ActivityItem icon="$" title="Liquidación de marzo" meta="Generada el 01 de marzo" amount="S/ 248.50" status="Pendiente" /><ActivityItem icon="◷" title="Reserva confirmada" meta="Terraza · 16 de marzo" amount="" status="Confirmada" /><ActivityItem icon="✦" title="Nuevo comunicado" meta="Mantenimiento de ascensores" amount="" status="Nuevo" /></section><section className="panel announcement-panel"><PanelHeader title="Del edificio" action="Ver comunicados" href="#/resident/announcements" /><span className="announcement-date">12 MAR 2024</span><h3>Mantenimiento de ascensores</h3><p>El mantenimiento preventivo se realizará este jueves entre las 10:00 y 14:00 horas.</p><a className="text-link" href="#/resident/announcements">Leer comunicado <span>→</span></a></section></div>
-  </>
-}
-
-function AdminDashboard() {
-  return <><div className="page-heading"><div><span className="eyebrow">Panel de administración</span><h1>Hola, administrador <span className="wave">✦</span></h1><p>Esto es lo que requiere tu atención en Residencial Aurora.</p></div><button className="button button-primary">Registrar gasto <span>+</span></button></div><section className="stats-grid"><StatCard label="Por validar" value="8 pagos" hint="S/ 1,860.00 pendientes" tone="teal" icon="$" /><StatCard label="Reservas pendientes" value="3 solicitudes" hint="Requieren aprobación" tone="lilac" icon="◷" /><StatCard label="Lecturas del mes" value="24 / 32" hint="75% completado" tone="peach" icon="♧" /></section><div className="dashboard-columns"><section className="panel"><PanelHeader title="Tareas pendientes" action="Ver gestión" href="#/admin/payments" /><ActivityItem icon="$" title="Comprobantes por validar" meta="8 residentes esperan revisión" amount="" status="Revisar" /><ActivityItem icon="◷" title="Solicitudes de reserva" meta="Salón social y terraza" amount="" status="Revisar" /><ActivityItem icon="♧" title="Lecturas pendientes" meta="8 departamentos sin registrar" amount="" status="Revisar" /></section><section className="panel announcement-panel"><span className="announcement-date">ESTE MES</span><h3>Estado del edificio</h3><p>La ocupación está al 94% y todos los documentos obligatorios están publicados.</p><a className="text-link" href="#/admin/buildings">Gestionar edificio <span>→</span></a></section></div></>
-}
-
-function ScreenPage({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return <><div className="page-heading"><div><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{description}</p></div><button className="button button-secondary">Filtros <span>⌄</span></button></div><section className="panel placeholder-panel"><div className="placeholder-icon">✦</div><h2>Estamos preparando este espacio</h2><p>La estructura de Ediflex ya está lista. Este módulo se conectará a la información real en una siguiente fase.</p><a href="#/resident" className="text-link">Volver al inicio <span>→</span></a></section></>
-}
-
-function NotFound() { return <section className="panel placeholder-panel"><div className="placeholder-icon">?</div><h2>Página no encontrada</h2><p>La ruta que buscas no existe en este starter.</p><a href="#/resident" className="text-link">Volver al inicio <span>→</span></a></section> }
-
-function StatCard({ label, value, hint, tone, icon }: { label: string; value: string; hint: string; tone: string; icon: string }) { return <article className={`stat-card ${tone}`}><div className="stat-top"><span>{label}</span><span className="stat-icon">{icon}</span></div><strong>{value}</strong><small>{hint}</small></article> }
-function PanelHeader({ title, action, href }: { title: string; action: string; href: string }) { return <div className="panel-header"><h2>{title}</h2><a href={href} className="text-link">{action} <span>→</span></a></div> }
-function ActivityItem({ icon, title, meta, amount, status }: { icon: string; title: string; meta: string; amount: string; status: string }) { return <div className="activity-item"><span className="activity-icon">{icon}</span><div className="activity-copy"><strong>{title}</strong><span>{meta}</span></div>{amount && <strong className="activity-amount">{amount}</strong>}<span className="status-pill">{status}</span></div> }
-
-export default App
+function Splash() { return <main className="auth splash"><div className="orb" /><Brand /><h1>Gestión residencial moderna para comunidades conectadas.</h1><p>Pagos, reservas, comunicados y documentos con una experiencia SaaS mobile first.</p><a className="btn primary" href="#/login">Comenzar</a></main> }
+function Login() { return <main className="auth"><Brand /><section className="auth-card"><h1>Inicia sesión</h1><p>Bienvenido a Ediflex Building Management</p><label>Correo electrónico<input placeholder="ejemplo@correo.com" /></label><label>Contraseña<input placeholder="••••••••" type="password" /></label><a className="btn primary" href="#/resident">Ingresar</a><button className="btn soft">Solicitar acceso a mi edificio</button></section></main> }
+function Heading({ eyebrow, title, cta }: { eyebrow: string; title: string; cta?: string }) { return <div className="heading"><div><span className="eyebrow">{eyebrow}</span><h1>{title}</h1></div>{cta && <button className="btn primary">{cta}</button>}</div> }
+function KPI({ label, value, icon, tone='blue' }: { label: string; value: string; icon: string; tone?: string }) { return <article className={`kpi ${tone}`}><span className="material-symbols-outlined">{icon}</span><small>{label}</small><b>{value}</b></article> }
+function ResidentDashboard() { return <><Heading eyebrow="Hola, Juan Pérez" title="Dashboard del Residente" cta="Pagar ahora" /><section className="hero"><div><small>Saldo pendiente</small><b>$150.00</b><span>Octubre publicada · vence en 6 días</span></div><a href="#/resident/payment/new" className="btn light">Pagar mantenimiento</a></section><div className="grid kpis"><KPI label="Próxima reserva" value="Gimnasio 18:00" icon="event_available"/><KPI label="Comunicados nuevos" value="3" icon="campaign" tone="green"/><KPI label="Consumo de agua" value="12.4 m³" icon="water_drop" tone="purple"/></div><DashboardLists /></> }
+function AdminDashboard() { return <><Heading eyebrow="Operación" title="Dashboard del Administrador" cta="Registrar gasto" /><div className="grid kpis"><KPI label="Pagos por validar" value="8" icon="fact_check"/><KPI label="Reservas pendientes" value="3" icon="event_note" tone="green"/><KPI label="Lecturas completadas" value="24/32" icon="water_drop" tone="purple"/></div><DashboardLists admin /></> }
+function SuperDashboard() { return <><Heading eyebrow="Plataforma" title="Dashboard del Superadministrador" cta="Nuevo edificio" /><div className="grid kpis"><KPI label="Edificios activos" value="18" icon="domain"/><KPI label="Unidades" value="642" icon="apartment" tone="green"/><KPI label="Administradores" value="26" icon="group" tone="purple"/></div><Buildings /></> }
+function DashboardLists({admin=false}:{admin?:boolean}) { return <div className="two-col"><ListPage embedded title={admin?'Tareas pendientes':'Actividad reciente'} eyebrow="" icon="task_alt" items={admin?['Validar comprobantes','Aprobar reserva de terraza','Completar lecturas de agua']:['Liquidación publicada','Reserva confirmada','Nuevo comunicado']} action="Revisar"/><section className="panel"><h2>Comunicado destacado</h2><p>Mantenimiento de elevadores programado para el lunes. La estructura visual queda lista para conectar datos reales.</p><a className="text-link" href="#/resident/announcements">Ver comunicados →</a></section></div> }
+function Account() { return <><Heading eyebrow="Finanzas" title="Estado de Cuenta" cta="Descargar PDF"/><section className="hero compact-hero"><div><small>Total a pagar</small><b>$150.00</b><span>Mantenimiento, agua y fondo de reserva</span></div></section><ListPage embedded title="Detalle de cargos" eyebrow="" icon="request_quote" items={money} action="Ver detalle" /></> }
+function PaymentNew() { return <><Heading eyebrow="Finanzas" title="Pago de Mantenimiento"/><section className="panel form"><h2>Registrar comprobante</h2><label>Monto<input placeholder="$150.00"/></label><label>Fecha<input placeholder="02/08/2026"/></label><label>Comprobante<div className="dropzone">Subir archivo</div></label><button className="btn primary">Enviar para validación</button></section></> }
+function Reservations() { return <><Heading eyebrow="Comunidad" title="Reserva de Áreas Comunes" cta="Nueva reserva"/><div className="grid cards">{['Gimnasio','Terraza','Salón social'].map(x=><article className="panel area" key={x}><span className="material-symbols-outlined">event_available</span><h2>{x}</h2><p>Disponible esta semana</p><button className="btn soft">Reservar</button></article>)}</div></> }
+function Management(p:{title:string;metric:string;icon:string}) { return <><Heading eyebrow="Administración" title={p.title} cta="Crear"/><div className="grid kpis"><KPI label="Resumen" value={p.metric} icon={p.icon}/><KPI label="Este mes" value="94%" icon="monitoring" tone="green"/></div><ListPage embedded title="Bandeja de gestión" eyebrow="" icon={p.icon} items={['Solicitud #1048','Solicitud #1049','Solicitud #1050']} action="Gestionar"/></> }
+function Water() { return <><Heading eyebrow="Operación" title="Registro de Consumo de Agua" cta="Guardar lecturas"/><section className="panel table"><h2>Lecturas del mes</h2>{['Depto 401','Depto 402','Depto 403'].map((x,i)=><div className="row" key={x}><span>{x}</span><b>{12+i}.4 m³</b><button className="btn soft">Editar</button></div>)}</section></> }
+function Buildings() { return <><Heading eyebrow="Superadmin" title="Gestión de Edificios" cta="Agregar edificio"/><div className="grid cards">{['Residencial Aurora','Vista Mar','Parque Central'].map(x=><article className="panel area" key={x}><span className="material-symbols-outlined">domain</span><h2>{x}</h2><p>Administrador asignado · plan activo</p><button className="btn soft">Administrar</button></article>)}</div></> }
+function ListPage({ title, eyebrow, icon, items, action, embedded=false }: { title:string; eyebrow:string; icon:string; items:string[]; action:string; embedded?:boolean }) { return <>{!embedded && <Heading eyebrow={eyebrow} title={title}/>}<section className="panel list"><h2>{title}</h2>{items.map((item,i)=><div className="row" key={item}><span className="material-symbols-outlined">{icon}</span><div><b>{item}</b><small>{i+1} de agosto · Residencial Aurora</small></div><a className="text-link">{action}</a></div>)}</section></> }
